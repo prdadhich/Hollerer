@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "595324323690",
+    "firebase_url": "https://hollerer-7de69-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "hollerer-7de69",
+    "storage_bucket": "hollerer-7de69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595324323690:android:ab33cba3f3ed4aa2e10713",
+        "android_client_info": {
+          "package_name": "com.aboveandbelow.hollerer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595324323690-bdeblt4ac4s9ibcgcsunrhce72uct9du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9vs3m71Txyz_hy54l9wRwKs9sklCtfV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595324323690-bdeblt4ac4s9ibcgcsunrhce72uct9du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
