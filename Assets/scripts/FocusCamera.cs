@@ -70,19 +70,20 @@ void Update()
             if (Physics.Raycast(CameraRay.transform.position, cameraRay.direction, out hit))
             {
 
-
+                if (hit.collider.gameObject.GetComponent<MeshRenderer>().material != FocusedMaterial)
+                { hit.collider.gameObject.GetComponent<MeshRenderer>().material = HoverMaterial; }
 
                 if (hit.collider == _previousHitCollider)
                 {
-
-                    hit.collider.gameObject.GetComponent<MeshRenderer>().material = HoverMaterial;
+               
 
                     if (_startTime + FocusTime < Time.time)
                     {
+                        hit.collider.gameObject.GetComponent<MeshRenderer>().material = FocusedMaterial;
                         CallFunctionCounter += 1;
                         if (CallFunctionCounter == 1)
                         {
-                            hit.collider.gameObject.GetComponent<MeshRenderer>().material = FocusedMaterial;
+                   
 
                             //call the desired function here when things are kept focused
 
@@ -116,7 +117,7 @@ void Update()
                 {
                     _startTime = Time.time;
                     _previousHitCollider = hit.collider;
-
+                   
                     CallFunctionCounter = 0;
                 }
             }
