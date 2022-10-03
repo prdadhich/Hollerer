@@ -9,6 +9,7 @@ using UnityEditor.Scripting.Python;
 using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Database : MonoBehaviour
 
@@ -16,28 +17,52 @@ public class Database : MonoBehaviour
   
     
     private string jsonData;
-    private LoadText TextArea;
+   
     [HideInInspector]
     public string url;
+    [HideInInspector]
+    public string JsonPath = "D:/Replicate.json";
 
-
-    public ImageLoader imgLoader;
+    public SpawnWords spawnWords;
+    public FocusCamera focusCamera;
+    
+ 
+    public static int GameStartCounter = 0;
+   // public ImageLoader imgLoader;
     public struct ReplicateJsonData
     {
         public string Url;
         public string SelectedWords;
+        public int NumberofScenesLoaded;
         public Dictionary<string, string> Words;
+        public Dictionary<string, List<string>> Scenes;
     };
-
-    ReplicateJsonData ReplicatedJsonData;
+    [HideInInspector]
+    public ReplicateJsonData ReplicatedJsonData;
     // Start is called before the first frame update
     void Start()
     {
       
-       TextArea = GetComponent<LoadText>();
+        ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(JsonPath));
 
+        foreach(var SceneWord in ReplicatedJsonData.Scenes[SceneManager.GetActiveScene().name])
+        {
+            spawnWords.SpawnPrefab(SceneWord);
+            focusCamera.WordsInScene.Add(SceneWord);
+        }
 
-        ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText("D:/Replicate.json"));
+        if(GameStartCounter ==0)
+        {
+            ReplicatedJsonData.SelectedWords = "";
+            ReplicatedJsonData.NumberofScenesLoaded = 0;
+            GameStartCounter++;
+            StartCoroutine(WriteJsonFile());
+        }
+        
+        if(SceneManager.GetActiveScene().name == "EndScene")
+        {
+            StartCoroutine(WriteJsonFile());
+        }
     }
 
     // Update is called once per frame
@@ -46,20 +71,9 @@ public class Database : MonoBehaviour
         
     }
 
-    
 
-    public void CallData()
-    {
 
-        //ReadJsonFile("D:/Replicate.json");
-       StartCoroutine( WriteJsonFile("D:/Replicate.json"));
-
-        
-
-      
-    }
-
-    public IEnumerator WriteJsonFile(string path)
+    public IEnumerator WriteJsonFile()
     {
 
 
@@ -68,31 +82,35 @@ public class Database : MonoBehaviour
         //jsonData = reader.ReadToEnd();
         //reader.Close();
 
-        ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(path));
-        ReplicatedJsonData.SelectedWords = TextArea.WordsSelected.text;
+        // ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(path));
+        //ReplicatedJsonData.SelectedWords = TextArea.WordsSelected.text;
 
         //Debug.Log(ReplicatedJsonData.SelectedWords[0]);
         
        
         //Debug.Log(ReplicatedJsonData.SelectedWords[1]);
        // Debug.Log(JsonConvert.SerializeObject(ReplicatedJsonData).GetType());
-        File.WriteAllText( path,JsonConvert.SerializeObject(ReplicatedJsonData));
+        File.WriteAllText( JsonPath,JsonConvert.SerializeObject(ReplicatedJsonData));
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
 
+        
+        if (SceneManager.GetActiveScene().name=="EndScene")
+        {
+            PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
+            yield return new WaitForSeconds(2);
 
-
-        PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
-
-        ReadJsonFile(path);
+            ReadJsonFile();
+        }
+       
     }
 
-    public void ReadJsonFile(string path)
+    public void ReadJsonFile()
     {
-        ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(path));
+        ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(JsonPath));
         url = ReplicatedJsonData.Url;
 
-        imgLoader.LoadImage(url);
+        //imgLoader.LoadImage(url);
        /* foreach (var text in TextArea.WordsToSend)
         {
             ReplicatedJsonData.SelectedWords.Append(text);

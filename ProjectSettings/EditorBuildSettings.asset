@@ -4,5 +4,32 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/EntryScene.unity
+    guid: 55b1b6dd45b64ee4ca254df5458611ab
+  - enabled: 1
+    path: Assets/Scenes/Scene01.unity
+    guid: fa1591db8a7d9b847be0c121f6cd362b
+  - enabled: 1
+    path: Assets/Scenes/Scene02.unity
+    guid: 89121d4e4c513264083d0a9f463d7eac
+  - enabled: 1
+    path: Assets/Scenes/Scene03.unity
+    guid: 5d328bb1b2f322149bae7e2211b1e08f
+  - enabled: 1
+    path: Assets/Scenes/Scene04.unity
+    guid: 9a3da2e6a570af54d9fcab724e0956fd
+  - enabled: 1
+    path: Assets/Scenes/Scene05.unity
+    guid: 53cff8f34f538cd43acf4bb61ba36554
+  - enabled: 1
+    path: Assets/Scenes/Scene06.unity
+    guid: 39377272373683a4e82955461e12dbbf
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b3a8f2b2afa114845867435212d5cbc6, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5e028ed82a9c4e3478e6deffdf4e3689, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: ccfe5806a727626469c6a19f0d2a862d, type: 2}

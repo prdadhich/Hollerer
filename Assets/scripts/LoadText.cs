@@ -13,7 +13,7 @@ public class LoadText : MonoBehaviour
 
     public List<Button> WordsButton;
     public Button ResetBtn;
-    [SerializeField] 
+  
     public TMP_Text WordsSelected;
 
     
@@ -23,7 +23,7 @@ public class LoadText : MonoBehaviour
         WordsSelected.text = "";
         foreach (var button in WordsButton)
         {
-            button.onClick.AddListener(() => GetButtonName(""));
+            button.onClick.AddListener(() => GetButtonName());
         }
         ResetBtn.onClick.AddListener(() => ResetWordsSelected());
     }
@@ -39,13 +39,13 @@ public class LoadText : MonoBehaviour
         WordsSelected.text = "";
     }
 
-    public void GetButtonName(string TextForFireBase)
+    public void GetButtonName()
     {
         
         if(index<5)
         {
             string currentName = EventSystem.current.currentSelectedGameObject.name;
-            //Debug.Log(EventSystem.current.currentSelectedGameObject.name);
+            Debug.Log(EventSystem.current.currentSelectedGameObject.name);
             WordsSelected.text = WordsSelected.text + currentName + ",";
            
         }

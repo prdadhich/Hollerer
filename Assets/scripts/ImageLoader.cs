@@ -1,27 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 
 public class ImageLoader : MonoBehaviour
 {
-    public string RecentUrl;
+    private string _url;
     // This will be the most recent value from the replicate API link, we will store this in Firebase and
     // call the URL when this is updated, with python script..
 
-
-
+  
    // public string url; 
-    public Renderer thisRenderer;
-    public Database dataBase;
+    private Renderer _thisRenderer;
+    public Database database;
     // automatically called when game started
     void Start()
     {
-       // url = dataBase.url;
-//
-       // StartCoroutine(LoadFromLikeCoroutine()); // execute the section independently
-
+        database.ReadJsonFile();
+        _url = database.url;
+        StartCoroutine(LoadFromLikeCoroutine(_url));
+        // StartCoroutine(LoadFromLikeCoroutine()); // execute the section independently
+        _thisRenderer = this.GetComponent<Renderer>();
         // the following will be called even before the load finished
-        thisRenderer.material.color = Color.red;
+
+
+        _thisRenderer.material.EnableKeyword("_NORMALMAP");
+        _thisRenderer.material.EnableKeyword("_EMISSIONMAP");
     }
 
     private void Update()
@@ -38,13 +42,12 @@ public class ImageLoader : MonoBehaviour
         yield return wwwLoader;         // start loading whatever in that url ( delay happens here )
 
         Debug.Log("Loaded");
-        thisRenderer.material.color = Color.white;              // set white
-        thisRenderer.material.mainTexture = wwwLoader.texture;  // set loaded image
-    }
+        Debug.Log(_url);
 
-    public void LoadImage( string url)
-    {
-        StartCoroutine(LoadFromLikeCoroutine(url));
+        // set white
+        _thisRenderer.material.SetTexture("_MainTex", wwwLoader.texture);
+        _thisRenderer.material.SetTexture("_EmissionMap", wwwLoader.texture); // set loaded image
 
     }
+  
 }
