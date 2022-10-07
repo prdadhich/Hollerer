@@ -30,7 +30,7 @@ public class SpawnWords : MonoBehaviour
 
     public void SpawnPrefab(string name)
     {
-        Vector3 spawnPosition = new Vector3(Random.Range(1.0f, 5.0f), Random.Range(1.0f, 5.0f), Random.Range(5.0f, 10.0f));
+        Vector3 spawnPosition = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(5.0f, 15.0f));
         var obj = Instantiate(WordPrefab, spawnPosition, Quaternion.identity);
         obj.name = name;
         wordOnObject = obj.GetComponentInChildren<TMP_Text>();
