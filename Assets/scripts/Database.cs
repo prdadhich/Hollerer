@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Diagnostics.Contracts;
+using UnityEngine.XR.OpenXR;
+using Unity.VisualScripting;
 
 public class Database : MonoBehaviour
 
@@ -25,6 +28,8 @@ public class Database : MonoBehaviour
 
     public SpawnWords spawnWords;
     public FocusCamera focusCamera;
+
+
     
  
     public static int GameStartCounter = 0;

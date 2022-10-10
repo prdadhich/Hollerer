@@ -65,8 +65,7 @@ void Update()
     {
 
 
-        if(SceneManager.GetActiveScene().name != "EndScene")
-        {
+       
             if (Physics.Raycast(CameraRay.transform.position, cameraRay.direction, out hit))
             {
 
@@ -107,6 +106,10 @@ void Update()
                             {
                                 loadScene.SceneToLoad("EntryScene");
                             }
+                            if (_previousHitCollider.name == "Restart")
+                            {
+                                RestartGame();
+                            }
 
 
                         }
@@ -129,7 +132,7 @@ void Update()
 
                 _previousHitCollider = null;
             }
-        }
+        
         
         
 
@@ -167,4 +170,14 @@ void Update()
         }
     }
 
+
+
+    public void RestartGame()
+    {
+        Database.GameStartCounter = 0;
+        SceneManager.LoadScene("EntryScene");
+
+
+
+    }
 }
