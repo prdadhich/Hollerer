@@ -16,6 +16,12 @@ public class ImageLoader : MonoBehaviour
     // automatically called when game started
     void Start()
     {
+        StartCoroutine(DelayStart());
+    }
+
+    private IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(6);
         database.ReadJsonFile();
         _url = database.url;
         StartCoroutine(LoadFromLikeCoroutine(_url));

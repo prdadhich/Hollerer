@@ -44,18 +44,28 @@ public class Restart : MonoBehaviour
         action.canceled += Read;
 
     }
+    private void OnDisable()
+    {
+
+        var _actionMap = _playerControl.FindActionMap("HMD");
+        action = _actionMap.FindAction("hmdUserPresence");
+        action.Disable();
+        action.started -= (ctx) => Debug.Log("UserPresence: true");
+        action.canceled -= Read;
+
+    }
     private void Read(InputAction.CallbackContext context)
     {
-
-        Database.GameStartCounter = 0;
-        SceneManager.LoadScene("EntryScene");
-        //StartCoroutine(RestartGame(context));
+        
+        //Database.GameStartCounter = 0;
+       // SceneManager.LoadScene("EntryScene");
+        StartCoroutine(RestartGame(context.ReadValue<bool>()));
     }
 
-    private IEnumerator RestartGame(InputAction.CallbackContext context)
+    private IEnumerator RestartGame(bool headsetRemoved)
     {
         yield return new WaitForSeconds(4);
-        if(context.canceled)
+        if(!headsetRemoved)
         {
             Database.GameStartCounter = 0;
             SceneManager.LoadScene("EntryScene");
