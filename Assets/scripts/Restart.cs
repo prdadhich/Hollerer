@@ -8,10 +8,11 @@ using UnityEngine.InputSystem.HID;
 
 public class Restart : MonoBehaviour
 {
-    private bool isHMDMounted;
+   
 
 
     private InputAction action;
+
     [SerializeField] 
     private InputActionAsset _playerControl;
 
@@ -43,8 +44,23 @@ public class Restart : MonoBehaviour
         action.canceled += Read;
 
     }
-    public void Read(InputAction.CallbackContext context)
+    private void Read(InputAction.CallbackContext context)
     {
+
+        Database.GameStartCounter = 0;
         SceneManager.LoadScene("EntryScene");
+        //StartCoroutine(RestartGame(context));
+    }
+
+    private IEnumerator RestartGame(InputAction.CallbackContext context)
+    {
+        yield return new WaitForSeconds(4);
+        if(context.canceled)
+        {
+            Database.GameStartCounter = 0;
+            SceneManager.LoadScene("EntryScene");
+        }
+      
+
     }
 }
