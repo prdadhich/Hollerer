@@ -16,6 +16,7 @@ public class Restart : MonoBehaviour
     [SerializeField] 
     private InputActionAsset _playerControl;
 
+    private bool _headsetRemoved;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,11 @@ public class Restart : MonoBehaviour
         //var _actionMap = _playerControl.FindActionMap("HMD");
       //  _userPresence = _actionMap.FindAction("hmdUserPresence");
        // Debug.Log(_userPresence.ReadValue<bool>());
+       if(_headsetRemoved)
+        {
+
+            StartCoroutine(RestartGame());
+        }
     }
 
 
@@ -40,8 +46,10 @@ public class Restart : MonoBehaviour
         var _actionMap = _playerControl.FindActionMap("HMD");
         action = _actionMap.FindAction("hmdUserPresence");
         action.Enable();
-        action.started += (ctx) => Debug.Log("UserPresence: true");
-        action.canceled += Read;
+        action.started += (ctx) => { Debug.Log("UserPresence: true"); _headsetRemoved = false; };
+
+
+        action.canceled += (ctx) => { Debug.Log("UserPresence: cancelled"); _headsetRemoved = true; };
 
     }
     private void OnDisable()
@@ -50,8 +58,8 @@ public class Restart : MonoBehaviour
         var _actionMap = _playerControl.FindActionMap("HMD");
         action = _actionMap.FindAction("hmdUserPresence");
         action.Disable();
-        action.started -= (ctx) => Debug.Log("UserPresence: true");
-        action.canceled -= Read;
+        action.started -= (ctx) => Debug.Log("UserPresence: false");
+        action.canceled -= (ctx) => Debug.Log("UserPresence: false");
 
     }
     private void Read(InputAction.CallbackContext context)
@@ -59,18 +67,20 @@ public class Restart : MonoBehaviour
         
         //Database.GameStartCounter = 0;
        // SceneManager.LoadScene("EntryScene");
-        StartCoroutine(RestartGame(context.ReadValue<bool>()));
+        //StartCoroutine(RestartGame(context.ReadValue<bool>()));
     }
 
-    private IEnumerator RestartGame(bool headsetRemoved)
+    private IEnumerator RestartGame()
     {
-        yield return new WaitForSeconds(4);
-        if(!headsetRemoved)
+        yield return new WaitForSeconds(0);
+       if(_headsetRemoved)
         {
             Database.GameStartCounter = 0;
             SceneManager.LoadScene("EntryScene");
         }
-      
+        
+        
+     
 
     }
 }

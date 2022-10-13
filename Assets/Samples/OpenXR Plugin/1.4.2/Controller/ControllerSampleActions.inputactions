@@ -944,17 +944,6 @@
                     "action": "hmdUserPresence",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a247e699-003d-4070-bf68-5edaa32f7868",
-                    "path": "<OpenXRHmd>/isTracked",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "hmdUserPresence",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
