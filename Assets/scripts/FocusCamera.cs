@@ -153,17 +153,17 @@ void Update()
     {
        
 
-        if(WordsSelectedInScene.Count ==2 && database.ReplicatedJsonData.NumberofScenesLoaded <3)
+        if(WordsSelectedInScene.Count ==3 && database.ReplicatedJsonData.NumberofScenesLoaded <3)
         {
             loadScene.SceneToLoad("EntryScene");
         }
         else
-            if(WordsSelectedInScene.Count == 2 && database.ReplicatedJsonData.NumberofScenesLoaded >= 3)
+            if(WordsSelectedInScene.Count == 3 && database.ReplicatedJsonData.NumberofScenesLoaded >= 3)
         {
             loadScene.SceneToLoad("EndScene");
         }
         else
-            if(WordsSelectedInScene.Count < 2 && database.ReplicatedJsonData.NumberofScenesLoaded <= 3)
+            if(WordsSelectedInScene.Count < 3 && database.ReplicatedJsonData.NumberofScenesLoaded <= 3)
         {
             database.ReplicatedJsonData.SelectedWords = word + "," + database.ReplicatedJsonData.SelectedWords;
             StartCoroutine(database.WriteJsonFile());

@@ -46,8 +46,14 @@ public class ImageLoader : MonoBehaviour
     private IEnumerator LoadFromLikeCoroutine(string url)
     {
         Debug.Log("Loading ....");
-        WWW wwwLoader = new WWW(url);   // create WWW object pointing to the url
+        PlayAnimation(true);
+        WWW wwwLoader = new WWW(url); // create WWW object pointing to the url
+
+       
         yield return wwwLoader;         // start loading whatever in that url ( delay happens here )
+        PlayAnimation(false);
+
+
 
         Debug.Log("Loaded");
         Debug.Log(_url);
@@ -58,4 +64,11 @@ public class ImageLoader : MonoBehaviour
 
     }
   
+
+    private void PlayAnimation(bool shouldPlay)
+
+    {
+
+
+    }
 }
