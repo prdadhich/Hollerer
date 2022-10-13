@@ -64,10 +64,7 @@ public class Database : MonoBehaviour
             StartCoroutine(WriteJsonFile());
         }
         
-        if(SceneManager.GetActiveScene().name == "EndScene")
-        {
-            StartCoroutine(WriteJsonFile());
-        }
+       
     }
 
     // Update is called once per frame
@@ -95,17 +92,14 @@ public class Database : MonoBehaviour
        
         //Debug.Log(ReplicatedJsonData.SelectedWords[1]);
        // Debug.Log(JsonConvert.SerializeObject(ReplicatedJsonData).GetType());
-        File.WriteAllText( JsonPath,JsonConvert.SerializeObject(ReplicatedJsonData));
-
-        yield return new WaitForSeconds(0);
+       
 
         
-        if (SceneManager.GetActiveScene().name=="EndScene")
+     
         {
-            PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
-            yield return new WaitForSeconds(2);
+            File.WriteAllText(JsonPath, JsonConvert.SerializeObject(ReplicatedJsonData));
 
-            ReadJsonFile();
+            yield return new WaitForSeconds(0);
         }
        
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Policy;
+using UnityEditor.Scripting.Python;
 using UnityEngine;
 
 public class ImageLoader : MonoBehaviour
@@ -16,12 +17,13 @@ public class ImageLoader : MonoBehaviour
     // automatically called when game started
     void Start()
     {
+        PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
         StartCoroutine(DelayStart());
     }
 
     private IEnumerator DelayStart()
     {
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(1);
         database.ReadJsonFile();
         _url = database.url;
         StartCoroutine(LoadFromLikeCoroutine(_url));
