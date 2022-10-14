@@ -13,8 +13,8 @@ public class Restart : MonoBehaviour
 
     private InputAction action;
 
-    [SerializeField] 
-    private InputActionAsset _playerControl;
+    //[SerializeField] 
+    //private InputActionAsset _playerControl;
 
     private UnityEngine.XR.InputDevice device;
     private bool _headsetRemoved = false;
@@ -44,7 +44,10 @@ public class Restart : MonoBehaviour
         //  _userPresence = _actionMap.FindAction("hmdUserPresence");
         // Debug.Log(_userPresence.ReadValue<bool>());
 
-
+        if (!device.isValid)
+        {
+            GetDevice();
+        }
         device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.userPresence, out _headsetRemoved);
         Debug.Log(_headsetRemoved);
         if (!_headsetRemoved)
