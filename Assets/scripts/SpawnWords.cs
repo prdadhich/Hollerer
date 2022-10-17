@@ -20,9 +20,10 @@ public class SpawnWords : MonoBehaviour
     private float _maxAngle = 360.0f;
     private float _noOfWordsInScene = 20.0f;
     int _counter = 0;
-    float _distance = 50.0f;
+    float _distance = 1000.0f;
     float _angle = 0.0f;
-
+    [SerializeField]
+    private float _timeToShowWord = 10.0f;
     private int _animateTime = 0;
     private int _animateMaxTime = 200;
     private List<GameObject> _wordsInScene = new List<GameObject>();
@@ -41,8 +42,8 @@ public class SpawnWords : MonoBehaviour
 
 
     public void SpawnPrefab(string name)
-    {   Vector2 pos = SpawnPosition();
-        Vector3 spawnPosition = new Vector3(pos.x, 2.0f, pos.y);
+    {   Vector2 pos = SpawnPosition(_distance);
+        Vector3 spawnPosition = new Vector3(pos.x, UnityEngine.Random.Range(-300.0f,500.0f), pos.y);
         
         var obj = Instantiate(WordPrefab, spawnPosition, Quaternion.identity);
         obj.name = name;
@@ -52,10 +53,11 @@ public class SpawnWords : MonoBehaviour
         wordOnObject.text = name;
         obj.tag = "Words";
         obj.transform.GetChild(1).name = name;
-        _wordsInScene.Append(obj);
+        _wordsInScene.Add(obj); 
+        obj.SetActive(false);
     }
 
-    private Vector2 SpawnPosition()
+    private Vector2 SpawnPosition(float _distance)
     {
         _angle = _maxAngle / _noOfWordsInScene;
         var x = _distance * Mathf.Cos(_angle*_counter/(180.0f/MathF.PI));
@@ -68,7 +70,19 @@ public class SpawnWords : MonoBehaviour
     
     }
 
-   
-    
+
+    public IEnumerator Animate()
+    {
+       
+        foreach (var word in _wordsInScene)
+        {
+            //Debug.Log(word.gameObject.name);
+            word.SetActive(true);  
+            yield return new WaitForSeconds(_timeToShowWord);
+            word.SetActive(false);
+
+        }
+        
+    }
 
 }

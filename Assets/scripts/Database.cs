@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 using System.Diagnostics.Contracts;
 using UnityEngine.XR.OpenXR;
 using Unity.VisualScripting;
+using Microsoft.Scripting.Utils;
 
 public class Database : MonoBehaviour
 
@@ -29,7 +30,7 @@ public class Database : MonoBehaviour
     public SpawnWords spawnWords;
     public FocusCamera focusCamera;
 
-
+    
     
  
     public static int GameStartCounter = 0;
@@ -54,6 +55,13 @@ public class Database : MonoBehaviour
         {
             spawnWords.SpawnPrefab(SceneWord);
             focusCamera.WordsInScene.Add(SceneWord);
+            //Debug.Log(ReplicatedJsonData.Scenes[SceneManager.GetActiveScene().name].Last<string>());
+            if (SceneWord == ReplicatedJsonData.Scenes[SceneManager.GetActiveScene().name].Last<string>())
+            {
+              
+                StartCoroutine(spawnWords.Animate());
+            }
+
         }
 
         if(GameStartCounter ==0)
@@ -64,6 +72,10 @@ public class Database : MonoBehaviour
             StartCoroutine(WriteJsonFile());
         }
         
+      
+     
+        
+
        
     }
 
@@ -94,13 +106,10 @@ public class Database : MonoBehaviour
        // Debug.Log(JsonConvert.SerializeObject(ReplicatedJsonData).GetType());
        
 
-        
-     
-        {
             File.WriteAllText(JsonPath, JsonConvert.SerializeObject(ReplicatedJsonData));
 
             yield return new WaitForSeconds(0);
-        }
+       
        
     }
 

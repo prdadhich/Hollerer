@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Restart
       objectReference: {fileID: 0}
+    - target: {fileID: 310765101636273557, guid: 35dbe0a0a818fef4583a5c0f28fef978, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 310765101798761544, guid: 35dbe0a0a818fef4583a5c0f28fef978, type: 3}
       propertyPath: m_text
       value: Restart
@@ -248,7 +252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301951611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.7993, y: 13.547173, z: -6.2631454}
+  m_LocalPosition: {x: -57.5, y: 13.547173, z: 39.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -542,6 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124823db18078405dbe1052e1f424335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _videoPlayer: {fileID: 301951611}
   database: {fileID: 2140229671}
 --- !u!23 &1643580282
 MeshRenderer:
@@ -755,6 +760,7 @@ MonoBehaviour:
   loadScene: {fileID: 2140229672}
   database: {fileID: 2140229671}
   WordsInScene: []
+  videoPlayer: {fileID: 301951612}
 --- !u!114 &2140229674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,4 +773,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ebf3ae8e3fa5e43b6ff3ef490086c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerControl: {fileID: -944628639613478452, guid: e0ca4504471ca124088e1e2cfe6804ae, type: 3}

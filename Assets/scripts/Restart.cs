@@ -21,10 +21,6 @@ public class Restart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-       
-
-
     }
     private void OnEnable()
     {
@@ -49,7 +45,7 @@ public class Restart : MonoBehaviour
             GetDevice();
         }
         device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.userPresence, out _headsetRemoved);
-        Debug.Log(_headsetRemoved);
+        //Debug.Log(_headsetRemoved);
         if (!_headsetRemoved)
         {
 
@@ -95,7 +91,8 @@ public class Restart : MonoBehaviour
         if(!_headsetRemoved)
         {
             Database.GameStartCounter = 0;
-            SceneManager.LoadScene("EntryScene");
+            FocusCamera.sceneAlreadyLoaded = null;
+            SceneManager.LoadScene("IntroScene");
         }
         
         

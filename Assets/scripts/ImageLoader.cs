@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEditor.Scripting.Python;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class ImageLoader : MonoBehaviour
 {
     private string _url;
     // This will be the most recent value from the replicate API link, we will store this in Firebase and
     // call the URL when this is updated, with python script..
-
+    [SerializeField]
+    private GameObject _videoPlayer;
+    private VideoPlayer _waitingVideo;
   
    // public string url; 
     private Renderer _thisRenderer;
@@ -19,6 +22,7 @@ public class ImageLoader : MonoBehaviour
     {
         PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
         StartCoroutine(DelayStart());
+        _waitingVideo = _videoPlayer.GetComponent<VideoPlayer>();   
     }
 
     private IEnumerator DelayStart()
@@ -68,7 +72,17 @@ public class ImageLoader : MonoBehaviour
     private void PlayAnimation(bool shouldPlay)
 
     {
+        if (shouldPlay)
+        {
+            _videoPlayer.SetActive(true);
 
+            _waitingVideo.Play();
+        }
+        else
+        {
+            _waitingVideo.Stop();
+            _videoPlayer.SetActive(false);
+        }
 
     }
 }

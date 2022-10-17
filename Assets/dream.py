@@ -1,11 +1,12 @@
 import replicate
 import json
-
+import random
 
 output_url =''
 #wordsToSend =""
 wordsArray = []
 wordsTrans = {}
+
 
 
 def predict(wordsToSend):
@@ -26,10 +27,12 @@ def predict(wordsToSend):
 def main():
 
     with open('D:\Replicate.json', 'r') as file:
+        
         data = json.load(file)
         wordsInGerman = data['SelectedWords']
         wordsTrans = data['Words']
         tempList = wordsInGerman.split(",")
+        tempList = random.choices(tempList,k=3)
         wordsToSen = ''
         for word in tempList:
             if(word != ''):

@@ -366,7 +366,7 @@ Transform:
   m_GameObject: {fileID: 338058993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.1, y: 1.4, z: -52.7}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -609,7 +609,7 @@ Transform:
   m_GameObject: {fileID: 632676388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.16, y: 1.4, z: 15.18}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -716,6 +716,8 @@ GameObject:
   - component: {fileID: 1014199672}
   - component: {fileID: 1014199674}
   - component: {fileID: 1014199673}
+  - component: {fileID: 1014199675}
+  - component: {fileID: 1014199676}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -744,6 +746,7 @@ MonoBehaviour:
   loadScene: {fileID: 1014199672}
   database: {fileID: 1014199674}
   WordsInScene: []
+  videoPlayer: {fileID: 345151619}
 --- !u!4 &1014199670
 Transform:
   m_ObjectHideFlags: 0
@@ -785,6 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WordPrefab: {fileID: 310765101636273557, guid: 35dbe0a0a818fef4583a5c0f28fef978, type: 3}
+  _timeToShowWord: 10
 --- !u!114 &1014199674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,6 +805,32 @@ MonoBehaviour:
   JsonPath: D:/Replicate.json
   spawnWords: {fileID: 1014199673}
   focusCamera: {fileID: 1014199669}
+--- !u!114 &1014199675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014199668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ebf3ae8e3fa5e43b6ff3ef490086c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1014199676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014199668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe1599e31102c249b336d13c44d9d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedWord: {fileID: 310765101636273557, guid: 35dbe0a0a818fef4583a5c0f28fef978, type: 3}
+  JsonPath: D:/Replicate.json
 --- !u!1 &1136760154
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +999,7 @@ Transform:
   m_GameObject: {fileID: 1582145447}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.1, y: 1.4, z: 15.18}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1111,7 +1141,7 @@ Transform:
   m_GameObject: {fileID: 1616277595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 23.24, y: 1.4, z: -26.2}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1416,7 +1446,7 @@ Transform:
   m_GameObject: {fileID: 2100126114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -49.7, y: 1.4, z: -2.9}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1558,7 +1588,7 @@ Transform:
   m_GameObject: {fileID: 2109959786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -43.8, y: 1.4, z: -46.4}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}

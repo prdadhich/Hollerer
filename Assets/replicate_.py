@@ -2,7 +2,7 @@ import os
 
 
         
-os.system('D:\Freelance\StudioAboveAndBelow\hollerer\onclicklist\Assets\dream.py')
+os.system('python D:\Freelance\StudioAboveAndBelow\hollerer\onclicklist\Assets\dream.py')
 
 
 

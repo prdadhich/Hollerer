@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class FocusCamera : MonoBehaviour
 {
@@ -26,14 +27,17 @@ public class FocusCamera : MonoBehaviour
     float _startTime = 0;
     [HideInInspector]
     public List<string> WordsInScene = new List<string>();
-    private List<string> WordsSelectedInScene = new List<string>();
+    private  List<string> WordsSelectedInScene = new List<string>();
 
-  
+
+    public VideoPlayer videoPlayer;
+
     private List<string> _sceneNames = new List<string>
     {
         "Scene01","Scene02","Scene03","Scene04","Scene05","Scene06"
     };
-    private List<string> _sceneAlreadyLoaded = new List<string>
+    [HideInInspector]
+    public static List<string> sceneAlreadyLoaded = new List<string>
     {
         
     };
@@ -43,7 +47,7 @@ public class FocusCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
+        videoPlayer.loopPointReached += MainSceneLoad;
     }
 
 
@@ -87,11 +91,11 @@ void Update()
                             //call the desired function here when things are kept focused
 
                             //for loading scene
-                            if (_sceneNames.Contains(_previousHitCollider.name) && !_sceneAlreadyLoaded.Contains(_previousHitCollider.name))
+                            if (_sceneNames.Contains(_previousHitCollider.name) && !sceneAlreadyLoaded.Contains(_previousHitCollider.name))
                             {
                                 LoadRequiredScene(_previousHitCollider.name);
                                 //loadScene.SceneToLoad(previousHitCollider.name);
-                                //_sceneAlreadyLoaded.Add(previousHitCollider.name);  
+                               sceneAlreadyLoaded.Add(_previousHitCollider.name);  
                             }
 
 
@@ -110,9 +114,13 @@ void Update()
                             {
                                 RestartGame();
                             }
+                            if (_previousHitCollider.name == "Skip")
+                            {
+                                loadScene.SceneToLoad("EntryScene");
+                            }
 
 
-                        }
+                    }
                     }
 
                 }
@@ -144,7 +152,7 @@ void Update()
         loadScene.SceneToLoad(sceneToLoad);
         if(sceneToLoad != "EntryScene")
         { 
-            _sceneAlreadyLoaded.Add(sceneToLoad); 
+            sceneAlreadyLoaded.Add(sceneToLoad); 
         }
         
     }
@@ -152,22 +160,9 @@ void Update()
     private void SaveSelectedWord(string word)
     {
        
-
-        if(WordsSelectedInScene.Count ==3 && database.ReplicatedJsonData.NumberofScenesLoaded <3)
-        {
-            loadScene.SceneToLoad("EntryScene");
-        }
-        else
-            if(WordsSelectedInScene.Count == 3 && database.ReplicatedJsonData.NumberofScenesLoaded >= 3)
-        {
-            loadScene.SceneToLoad("EndScene");
-        }
-        else
-            if(WordsSelectedInScene.Count < 3 && database.ReplicatedJsonData.NumberofScenesLoaded <= 3)
-        {
             database.ReplicatedJsonData.SelectedWords = word + "," + database.ReplicatedJsonData.SelectedWords;
             StartCoroutine(database.WriteJsonFile());
-        }
+        
     }
 
 
@@ -175,9 +170,18 @@ void Update()
     public void RestartGame()
     {
         Database.GameStartCounter = 0;
-        SceneManager.LoadScene("EntryScene");
+        SceneManager.LoadScene("IntroScene");
+    }
 
 
+    private void MainSceneLoad(VideoPlayer videoPlayer)
+    {
+        if(SceneManager.GetActiveScene().name != "EntryScene")
+        LoadRequiredScene("EntryScene");
 
+        if(database.ReplicatedJsonData.NumberofScenesLoaded ==3)
+        {
+            LoadRequiredScene("EndScene");
+        }
     }
 }
