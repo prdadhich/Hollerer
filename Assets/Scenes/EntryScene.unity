@@ -829,7 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe1599e31102c249b336d13c44d9d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedWord: {fileID: 310765101636273557, guid: 35dbe0a0a818fef4583a5c0f28fef978, type: 3}
+  selectedWord: {fileID: 310765101636273557, guid: 3ea0e645c12c7884eb90b4509bd0de86, type: 3}
   JsonPath: D:/Replicate.json
 --- !u!1 &1136760154
 GameObject:
