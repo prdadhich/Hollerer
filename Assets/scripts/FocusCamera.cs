@@ -7,6 +7,9 @@ using UnityEngine.Video;
 public class FocusCamera : MonoBehaviour
 {
 
+ 
+
+
     public Camera CameraRay;
     public GameObject PointerPrefab;
     public float FocusTime = 1.0f;

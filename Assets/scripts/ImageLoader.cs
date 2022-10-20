@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEditor.Scripting.Python;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Video;
 
 public class ImageLoader : MonoBehaviour
@@ -51,10 +52,11 @@ public class ImageLoader : MonoBehaviour
     {
         Debug.Log("Loading ....");
         PlayAnimation(true);
-        WWW wwwLoader = new WWW(url); // create WWW object pointing to the url
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url); // create WWW object pointing to the url
 
-       
-        yield return wwwLoader;         // start loading whatever in that url ( delay happens here )
+
+        yield return www.SendWebRequest();
+        Texture myTexture = DownloadHandlerTexture.GetContent(www);// start loading whatever in that url ( delay happens here )
         PlayAnimation(false);
 
 
@@ -63,8 +65,8 @@ public class ImageLoader : MonoBehaviour
         Debug.Log(_url);
 
         // set white
-        _thisRenderer.material.SetTexture("_MainTex", wwwLoader.texture);
-        _thisRenderer.material.SetTexture("_EmissionMap", wwwLoader.texture); // set loaded image
+        _thisRenderer.material.SetTexture("_MainTex", myTexture);
+        _thisRenderer.material.SetTexture("_EmissionMap", myTexture); // set loaded image
 
     }
   
