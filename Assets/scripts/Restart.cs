@@ -91,7 +91,7 @@ public class Restart : MonoBehaviour
         if(!_headsetRemoved)
         {
             Database.GameStartCounter = 0;
-            FocusCamera.sceneAlreadyLoaded = null;
+            FocusCamera.sceneAlreadyLoaded.Clear();
             SceneManager.LoadScene("IntroScene");
         }
         

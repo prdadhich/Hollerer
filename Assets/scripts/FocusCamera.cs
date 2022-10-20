@@ -107,6 +107,7 @@ void Update()
                             {
                                 SaveSelectedWord(_previousHitCollider.name);
                                 WordsSelectedInScene.Add(_previousHitCollider.name);
+                            _previousHitCollider.gameObject.GetComponent<Collider>().enabled = false;
 
                             }
                             if (_previousHitCollider.name == "EntryScene")

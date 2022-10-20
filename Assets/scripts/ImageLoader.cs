@@ -1,3 +1,5 @@
+using Replicate.Net.Models;
+using replicatedll;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Policy;
@@ -5,28 +7,71 @@ using UnityEditor.Scripting.Python;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Video;
+using System.Linq;
+using Unity.VisualScripting;
+using System.Runtime;
+using TMPro;
 
 public class ImageLoader : MonoBehaviour
 {
+    ReplicateDLL replicateDLL = new ReplicateDLL();
+
+    public string Token = "";
+
+
+    
+    Newtonsoft.Json.Linq.JArray array;
+
     private string _url;
-    // This will be the most recent value from the replicate API link, we will store this in Firebase and
-    // call the URL when this is updated, with python script..
+   
     [SerializeField]
     private GameObject _videoPlayer;
     private VideoPlayer _waitingVideo;
   
    // public string url; 
-    private Renderer _thisRenderer;
+    public  Renderer _thisRenderer;
     public Database database;
+
+    private List<string> _selectedWord = new List<string>();
+    private string _finalPrompt;
+    private static System.Random rnd = new System.Random();
     // automatically called when game started
     void Start()
     {
-        PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
-        StartCoroutine(DelayStart());
-        _waitingVideo = _videoPlayer.GetComponent<VideoPlayer>();   
+        database.ReadJsonFile();
+        //PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
+        ConvertPrompt();
+        _waitingVideo = _videoPlayer.GetComponent<VideoPlayer>();
+
+        _waitingVideo.Play();
     }
 
-    private IEnumerator DelayStart()
+    private void ConvertPrompt()
+    {
+        _selectedWord= database.ReplicatedJsonData.SelectedWords.Split(",").ToList();
+        _selectedWord.Remove("");
+        Debug.Log(_selectedWord[0]);
+        List<string> finalRandomSelectedWords = new List<string>();
+
+        for(int i = 0; i<6;i++)
+        {
+            var index = rnd.Next(_selectedWord.Count);
+            finalRandomSelectedWords.Add(_selectedWord[index]);
+            _selectedWord.RemoveAt(index);  
+
+        }
+        
+        foreach(var word in finalRandomSelectedWords)
+        {
+            _finalPrompt = _finalPrompt + database.ReplicatedJsonData.Words[word] + ",";
+
+        }
+        if(_finalPrompt!=null)
+        GetImage(_finalPrompt);
+
+    }
+
+   /* private IEnumerator DelayStart()
     {
         yield return new WaitForSeconds(1);
         database.ReadJsonFile();
@@ -41,12 +86,7 @@ public class ImageLoader : MonoBehaviour
         _thisRenderer.material.EnableKeyword("_EMISSIONMAP");
     }
 
-    private void Update()
-    {
-        //url = RecentUrl;
-        //url = dataBase.url;
-    }
-
+ 
     // this section will be run independently
     private IEnumerator LoadFromLikeCoroutine(string url)
     {
@@ -78,13 +118,57 @@ public class ImageLoader : MonoBehaviour
         {
             _videoPlayer.SetActive(true);
 
-            _waitingVideo.Play();
+            
         }
         else
         {
-            _waitingVideo.Stop();
+          
             _videoPlayer.SetActive(false);
         }
 
     }
+
+
+    */
+
+
+
+
+    public async void GetImage(string prompt)
+    {
+        
+        if (prompt != null)
+        {
+
+            Prediction response = await replicateDLL.PredictImage(Token, prompt);
+            Debug.Log(response.Urls.Get);
+            Debug.Log(response.Status);
+
+            array = (Newtonsoft.Json.Linq.JArray)response.Output;
+            Debug.Log(array[0]);
+            Debug.Log(response.Output.ToString());
+            Debug.Log(response.Output.GetType());
+
+            StartCoroutine(GetTexture(array[0].ToString()));
+        }
+
+    }
+
+
+    IEnumerator GetTexture(string url)
+    {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        yield return www.SendWebRequest();
+        _waitingVideo.Stop();
+        Texture myTexture = DownloadHandlerTexture.GetContent(www);
+
+        if (myTexture != null)
+        {
+            
+            _thisRenderer.material.SetTexture("_MainTex", myTexture);
+            _thisRenderer.material.SetTexture("_EmissionMap", myTexture);
+
+        }
+    }
+
 }

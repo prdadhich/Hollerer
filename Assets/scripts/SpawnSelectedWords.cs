@@ -41,12 +41,12 @@ public class SpawnSelectedWords : MonoBehaviour
     private float _maxAngle = 360.0f;
     private float _noOfWordsInScene = 20.0f;
     [HideInInspector]
-    public string JsonPath = "D:/Replicate.json";
+    public string JsonPath = null;
     private  List<string> selectedWords = new List<string>();
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-
+        JsonPath = $"{Application.dataPath}/Replicate.json";
         ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(JsonPath));
 
         selectedWords = ReplicatedJsonData.SelectedWords.Split(",").ToList();

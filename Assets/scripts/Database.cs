@@ -25,7 +25,7 @@ public class Database : MonoBehaviour
     [HideInInspector]
     public string url;
     [HideInInspector]
-    public string JsonPath = "D:/Replicate.json";
+    public string JsonPath = null;
 
     public SpawnWords spawnWords;
     public FocusCamera focusCamera;
@@ -48,7 +48,7 @@ public class Database : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+        JsonPath = $"{Application.dataPath}/Replicate.json";
         ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(JsonPath));
 
         foreach(var SceneWord in ReplicatedJsonData.Scenes[SceneManager.GetActiveScene().name])

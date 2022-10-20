@@ -8,7 +8,7 @@ public class LoadScene : MonoBehaviour
     // Start is called before the first frame update
 
     public Database database;
-    public float fadeDuration = 2.0f;
+    public float fadeDuration = 1.0f;
     public Color fadeColor;
     public Renderer rend;
 
@@ -19,19 +19,21 @@ public class LoadScene : MonoBehaviour
     public void SceneToLoad(string sceneName)
     {
         FadeOut(sceneName);
-        StartCoroutine(LoadLevel(sceneName));
+        //StartCoroutine(LoadLevel(sceneName));
         
     }
 
     IEnumerator LoadLevel(string sceneName)
     {
 
-        
-        yield return new WaitForSeconds(fadeDuration); 
+        yield return null;
+        //yield return new WaitForSeconds(fadeDuration); 
 
         if (sceneName != "EntryScene")
         {
-            database.ReplicatedJsonData.NumberofScenesLoaded++;
+            database.ReplicatedJsonData.NumberofScenesLoaded = database.ReplicatedJsonData.NumberofScenesLoaded + 1;
+
+            Debug.Log("NumberofScenesLoaded"+ database.ReplicatedJsonData.NumberofScenesLoaded);
             StartCoroutine(database.WriteJsonFile());
         }
         if (database.ReplicatedJsonData.NumberofScenesLoaded < 4)
