@@ -81,6 +81,9 @@ public class SpawnSelectedWords : MonoBehaviour
     }
     private Vector2 SpawnPosition(float _distance)
     {
+
+
+
         _angle = _maxAngle / _noOfWordsInScene;
         var x = _distance * Mathf.Cos(_angle * _counter / (180.0f / MathF.PI));
         var y = _distance * Mathf.Sin(_angle * _counter / (180.0f / MathF.PI));

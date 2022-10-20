@@ -69,6 +69,18 @@ public class Database : MonoBehaviour
             ReplicatedJsonData.SelectedWords = "";
             ReplicatedJsonData.NumberofScenesLoaded = 0;
             GameStartCounter++;
+
+            var obj = GameObject.FindGameObjectsWithTag("Scenes");
+            if(obj!=null)
+            {
+                foreach(var sceneObj in obj)
+                {
+                    sceneObj.GetComponent<Collider>().enabled = true;
+                }
+
+            }
+
+
             StartCoroutine(WriteJsonFile());
         }
         
@@ -115,7 +127,7 @@ public class Database : MonoBehaviour
 
     public void ReadJsonFile()
     {
-        ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText(JsonPath));
+        ReplicatedJsonData = JsonConvert.DeserializeObject<ReplicateJsonData>(File.ReadAllText($"{Application.dataPath}/Replicate.json"));
         url = ReplicatedJsonData.Url;
 
         //imgLoader.LoadImage(url);

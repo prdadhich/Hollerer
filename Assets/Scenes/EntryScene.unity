@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 338058994}
   m_Layer: 0
   m_Name: Scene04
-  m_TagString: Untagged
+  m_TagString: Scenes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -599,7 +599,7 @@ GameObject:
   - component: {fileID: 632676393}
   m_Layer: 0
   m_Name: Scene01
-  m_TagString: Untagged
+  m_TagString: Scenes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -948,7 +948,7 @@ GameObject:
   - component: {fileID: 1582145448}
   m_Layer: 0
   m_Name: Scene02
-  m_TagString: Untagged
+  m_TagString: Scenes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 1616277596}
   m_Layer: 0
   m_Name: Scene03
-  m_TagString: Untagged
+  m_TagString: Scenes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1396,7 +1396,7 @@ GameObject:
   - component: {fileID: 2100126115}
   m_Layer: 0
   m_Name: Scene06
-  m_TagString: Untagged
+  m_TagString: Scenes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 2109959787}
   m_Layer: 0
   m_Name: Scene05
-  m_TagString: Untagged
+  m_TagString: Scenes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

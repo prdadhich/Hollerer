@@ -75,6 +75,9 @@ void Update()
        
             if (Physics.Raycast(CameraRay.transform.position, cameraRay.direction, out hit))
             {
+                
+                 if(sceneAlreadyLoaded.Contains(hit.collider.name))
+            { hit.collider.gameObject.GetComponent<MeshRenderer>().material = FocusedMaterial; }
 
                 if (hit.collider.gameObject.GetComponent<MeshRenderer>().material != FocusedMaterial)
                 { hit.collider.gameObject.GetComponent<MeshRenderer>().material = HoverMaterial; }
@@ -98,8 +101,9 @@ void Update()
                             {
                                 LoadRequiredScene(_previousHitCollider.name);
                                 //loadScene.SceneToLoad(previousHitCollider.name);
-                               sceneAlreadyLoaded.Add(_previousHitCollider.name);  
-                            }
+                               sceneAlreadyLoaded.Add(_previousHitCollider.name);
+                               _previousHitCollider.gameObject.GetComponent<Collider>().enabled = false;
+                        }
 
 
                             //for writing selected words 

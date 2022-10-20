@@ -29,7 +29,7 @@ public class ImageLoader : MonoBehaviour
     private VideoPlayer _waitingVideo;
   
    // public string url; 
-    public  Renderer _thisRenderer;
+    public Renderer[] _thisRenderer;
     public Database database;
 
     private List<string> _selectedWord = new List<string>();
@@ -42,7 +42,7 @@ public class ImageLoader : MonoBehaviour
         //PythonRunner.RunFile($"{Application.dataPath}/replicate_.py");
         ConvertPrompt();
         _waitingVideo = _videoPlayer.GetComponent<VideoPlayer>();
-
+        //GetImage("lion king forest");
         _waitingVideo.Play();
     }
 
@@ -53,9 +53,10 @@ public class ImageLoader : MonoBehaviour
         Debug.Log(_selectedWord[0]);
         List<string> finalRandomSelectedWords = new List<string>();
 
-        for(int i = 0; i<6;i++)
+        for(int i = 0; i<3;i++)
         {
             var index = rnd.Next(_selectedWord.Count);
+            Debug.Log("index"+index);
             finalRandomSelectedWords.Add(_selectedWord[index]);
             _selectedWord.RemoveAt(index);  
 
@@ -164,9 +165,13 @@ public class ImageLoader : MonoBehaviour
 
         if (myTexture != null)
         {
-            
-            _thisRenderer.material.SetTexture("_MainTex", myTexture);
-            _thisRenderer.material.SetTexture("_EmissionMap", myTexture);
+            foreach(var rend in _thisRenderer)
+            {
+
+                rend.material.SetTexture("_MainTex", myTexture);
+                rend.material.SetTexture("_EmissionMap", myTexture);
+            }
+          
 
         }
     }
